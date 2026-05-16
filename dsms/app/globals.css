@@ -1,5 +1,7 @@
 
 
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 @font-face {
   font-family: "NEXON Lv1 Gothic Low OTF";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic Low OTF.woff")
@@ -207,5 +209,3 @@ body {
   color: var(--foreground);
   font-family: var(--font-pretendard);
 }
-
-@import "tailwindcss";
