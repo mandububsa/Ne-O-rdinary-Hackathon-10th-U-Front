@@ -1,3 +1,4 @@
+
 export type IngredientInput = {
   category_id: number | null;
   name: string;
