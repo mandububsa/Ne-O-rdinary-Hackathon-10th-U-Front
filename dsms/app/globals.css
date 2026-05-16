@@ -53,8 +53,8 @@
 
   /* Font Families */
   --font-nexon: "NEXON Lv1 Gothic Low OTF", sans-serif;
-  --font-pretendard: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
-    sans-serif;
+  --font-pretendard:
+    "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 
   /* Font Weights */
   --font-weight-bold: 700;
