@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "DSMS",
+    "slug": "dsms-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/agree.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.anonymous.xnative"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "33b11a0d-863a-4ff4-b1be-64e389220172"
+      }
+    },
+    "owner": "soapsoup",
+    "plugins": [
+      "expo-font",
+      "expo-router",
+      "expo-web-browser"
+    ]
+  }
+}
