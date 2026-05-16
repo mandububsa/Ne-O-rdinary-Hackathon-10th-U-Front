@@ -1,15 +1,152 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 @import "tailwindcss";
+
+@font-face {
+  font-family: "NEXON Lv1 Gothic Low OTF";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic Low OTF.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NEXON Lv1 Gothic Low OTF";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic Low OTF Bold.woff")
+    format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Primary Colors */
+  --primary-50: #f6f5ff;
+  --primary-100: #e9e5ff;
+  --primary-200: #d6cdff;
+  --primary-300: #bdacff;
+  --primary-400: #a385ff;
+  --primary-500: #894cff;
+  --primary-600: #6e1dde;
+  --primary-700: #5205ac;
+  --primary-800: #3b0081;
+  --primary-900: #270059;
+
+  /* Gray Colors */
+  --gray-50: #fbfcfd;
+  --gray-100: #f3f5f9;
+  --gray-200: #ebeef3;
+  --gray-300: #dadfe7;
+  --gray-400: #b4bbc7;
+  --gray-500: #949ba7;
+  --gray-600: #6c727e;
+  --gray-700: #585f69;
+  --gray-800: #3a404a;
+  --gray-900: #191f28;
+
+  /* Base Colors */
+  --white: #ffffff;
+  --black: #000000;
+
+  /* Font Families */
+  --font-nexon: "NEXON Lv1 Gothic Low OTF", sans-serif;
+  --font-pretendard: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    sans-serif;
+
+  /* Font Weights */
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+
+  /* Typography Tokens - Usage based */
+  /* Heading (3xl, NEXON, 24px, 140% line-height) */
+  --typography-heading-font: var(--font-nexon);
+  --typography-heading-size: 24px;
+  --typography-heading-weight-bold: var(--font-weight-bold);
+  --typography-heading-weight-regular: var(--font-weight-regular);
+  --typography-heading-line-height: 1.4;
+
+  /* Title (2xl, NEXON, 18px, 140% line-height) */
+  --typography-title-font: var(--font-nexon);
+  --typography-title-size: 18px;
+  --typography-title-weight-bold: var(--font-weight-bold);
+  --typography-title-weight-regular: var(--font-weight-regular);
+  --typography-title-line-height: 1.4;
+
+  /* Sub Title - NEXON (md, NEXON, 14px, 140% line-height) */
+  --typography-subtitle-nexon-font: var(--font-nexon);
+  --typography-subtitle-nexon-size: 14px;
+  --typography-subtitle-nexon-weight-bold: var(--font-weight-bold);
+  --typography-subtitle-nexon-weight-regular: var(--font-weight-regular);
+  --typography-subtitle-nexon-line-height: 1.4;
+
+  /* Sub Title - Pretendard (xl, Pretendard, 16px, 140% line-height) */
+  --typography-subtitle-font: var(--font-pretendard);
+  --typography-subtitle-size: 16px;
+  --typography-subtitle-weight-bold: var(--font-weight-bold);
+  --typography-subtitle-weight-semibold: var(--font-weight-semibold);
+  --typography-subtitle-weight-medium: var(--font-weight-medium);
+  --typography-subtitle-weight-regular: var(--font-weight-regular);
+  --typography-subtitle-line-height: 1.4;
+
+  /* Text (md, Pretendard, 14px, 140% line-height) */
+  --typography-text-font: var(--font-pretendard);
+  --typography-text-size: 14px;
+  --typography-text-weight-bold: var(--font-weight-bold);
+  --typography-text-weight-semibold: var(--font-weight-semibold);
+  --typography-text-weight-medium: var(--font-weight-medium);
+  --typography-text-weight-regular: var(--font-weight-regular);
+  --typography-text-line-height: 1.4;
+
+  /* Caption (xs, Pretendard, 12px, 140% line-height) */
+  --typography-caption-font: var(--font-pretendard);
+  --typography-caption-size: 12px;
+  --typography-caption-weight-bold: var(--font-weight-bold);
+  --typography-caption-weight-semibold: var(--font-weight-semibold);
+  --typography-caption-weight-medium: var(--font-weight-medium);
+  --typography-caption-weight-regular: var(--font-weight-regular);
+  --typography-caption-line-height: 1.4;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-pretendard);
   --font-mono: var(--font-geist-mono);
+  --font-nexon: var(--font-nexon);
+  --font-pretendard: var(--font-pretendard);
+
+  /* Primary Colors */
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+
+  /* Gray Colors */
+  --color-gray-50: var(--gray-50);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+
+  /* Base Colors */
+  --color-white: var(--white);
+  --color-black: var(--black);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +159,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-pretendard);
 }
