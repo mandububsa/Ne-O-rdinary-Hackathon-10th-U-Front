@@ -12,10 +12,10 @@ const INGREDIENT_COLORS = ["#00FF66", "#FFFFFF", "#894CFF", "#FF6B6B", "#FFD93D"
 const BASE_IMAGE_URL = "https://zxcv9203.duckdns.org";
 
 export default function PostPage() {
-  const { id } = useParams();
+  const { postid } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data, isLoading, error } = useRecipe(id as string);
+  const { data, isLoading, error } = useRecipe(postid as string);
 
   // measure 합산으로 비율 계산
   const mainIngredients = (data?.mainMaterials ?? []).map((m, i) => {
@@ -102,9 +102,9 @@ export default function PostPage() {
             </span>
 
             <div className="w-full h-8 flex rounded-sm overflow-hidden mt-2">
-              {mainIngredients.map((item) => (
+              {mainIngredients.map((item, index) => (
                 <div
-                  key={item.name}
+                  key={index}
                   style={{ width: `${item.ratio}%`, backgroundColor: item.color }}
                   className="flex flex-col items-center justify-center text-black"
                 >

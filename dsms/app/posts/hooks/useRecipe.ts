@@ -51,12 +51,14 @@ export function useRecipe(recipeId: number | string | null): UseRecipeReturn {
 
     try {
       const response = await fetch(`${BASE_URL}/recipes/${recipeId}`);
+      console.log(response)
 
       if (!response.ok) {
         throw new Error(`요청 실패: ${response.status} ${response.statusText}`);
       }
 
       const json: ApiResponse = await response.json();
+      console.log(json)
       setData(json.data);
     } catch (err) {
       setError(err instanceof Error ? err : new Error("알 수 없는 오류"));
