@@ -3,9 +3,11 @@
 import Image from "next/image";
 import ReviewWriteModal from "@/features/post/ReviewWriteModal";
 import Review from "@/features/post/Review";
+import BackButton from "@/components/BackButton";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useRecipe } from "../hooks/useRecipe";
+import { useSubmitReview } from "@/hooks/useSubmitReview";
 
 import { assetUrl } from "@/lib/api";
 
@@ -13,9 +15,10 @@ const INGREDIENT_COLORS = ["#00FF66", "#FFFFFF", "#894CFF", "#FF6B6B", "#FFD93D"
 
 export default function PostPage() {
   const { postid } = useParams();
+  const { submitReview } = useSubmitReview();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data, isLoading, error } = useRecipe(postid as string);
+  const { data, isLoading, error, refetch } = useRecipe(postid as string);
 
   // measure 합산으로 비율 계산
   const mainIngredients = (data?.mainMaterials ?? []).map((m, i) => {
@@ -74,11 +77,8 @@ export default function PostPage() {
             </svg>
           </div>
         </div>
-        <button className="absolute top-12 left-4 z-10 p-2 rounded-full bg-black/20 backdrop-blur-sm">
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+        {/* Back Button: 공용 버튼에 블러 배경만 덧입힌다. */}
+        <BackButton className="absolute top-12 left-4 z-10 rounded-full bg-black/20 backdrop-blur-sm" />
       </div>
 
       {/* Content Section */}
@@ -138,11 +138,19 @@ export default function PostPage() {
       <ReviewWriteModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSubmit={(ratings) => {
-          console.log(ratings);
+        onSubmit={async (ratings) => {
+          await submitReview(postid as string, {
+            easiness: ratings.easy,
+            visual: ratings.visual,
+            rarity: ratings.rarity,
+            affordability: ratings.cost,
+            satisfaction: ratings.satisfaction,
+          });
           setIsModalOpen(false);
+          refetch(); // 리뷰 제출 후 최신 데이터 재요청
         }}
       />
+
     </div>
   );
 }
