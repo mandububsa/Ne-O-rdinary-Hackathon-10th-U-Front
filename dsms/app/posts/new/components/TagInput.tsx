@@ -37,6 +37,8 @@ export default function TagInput({ value, onChange }: Props) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // 한글 IME 조합 중인 Enter는 무시한다(조합 확정용 keydown이라 태그가 중복 생성됨).
+    if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter') {
       e.preventDefault();
       addTag();

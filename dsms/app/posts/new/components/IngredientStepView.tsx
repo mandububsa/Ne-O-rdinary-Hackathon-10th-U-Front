@@ -292,6 +292,7 @@ function TextField({
   action,
   onChange,
   onEnter,
+  onCompositionChange,
 }: {
   label: string;
   value: string;
@@ -300,7 +301,15 @@ function TextField({
   action?: ReactNode;
   onChange: (value: string) => void;
   onEnter?: () => void;
+  onCompositionChange?: (isComposing: boolean) => void;
 }) {
+  const [isComposing, setIsComposing] = useState(false);
+
+  const updateComposition = (nextIsComposing: boolean) => {
+    setIsComposing(nextIsComposing);
+    onCompositionChange?.(nextIsComposing);
+  };
+
   return (
     <label className="flex flex-col gap-3 text-title-pretendard-3xl font-bold leading-[1.2] text-white">
       {label}
@@ -313,8 +322,21 @@ function TextField({
           value={value}
           inputMode={inputMode}
           onChange={(event) => onChange(event.target.value)}
+          onCompositionStart={() => updateComposition(true)}
+          onCompositionEnd={(event) => {
+            updateComposition(false);
+            onChange(event.currentTarget.value);
+          }}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
+              // 한글 IME 조합 확정용 Enter는 재료 추가로 처리하지 않는다.
+              if (
+                isComposing ||
+                event.nativeEvent.isComposing ||
+                event.nativeEvent.keyCode === 229
+              ) {
+                return;
+              }
               event.preventDefault();
               onEnter?.();
             }
@@ -349,6 +371,7 @@ function AddIngredientSheet({
     categoryId: null,
     name: '',
   });
+  const [isNameComposing, setIsNameComposing] = useState(false);
 
   const selectedType = CATEGORY_OPTIONS.find(
     (option) => option.id === draft.typeId,
@@ -360,7 +383,8 @@ function AddIngredientSheet({
   const canAdd =
     draft.typeId !== null &&
     draft.categoryId !== null &&
-    draft.name.trim().length > 0;
+    draft.name.trim().length > 0 &&
+    !isNameComposing;
   const canComplete = selectedChips.length > 0;
 
   const addDraftIngredient = () => {
@@ -454,6 +478,7 @@ function AddIngredientSheet({
               onChange={(name) =>
                 setDraft((current) => ({ ...current, name }))
               }
+              onCompositionChange={setIsNameComposing}
               onEnter={addDraftIngredient}
             />
           </div>
