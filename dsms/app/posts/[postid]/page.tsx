@@ -2,43 +2,67 @@
 
 import Image from "next/image";
 import ReviewWriteModal from "@/features/post/ReviewWriteModal";
-import { useState } from "react";
 import Review from "@/features/post/Review";
+import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useRecipe } from "../hooks/useRecipe";
+
+import { assetUrl } from "@/lib/api";
+
+const INGREDIENT_COLORS = ["#00FF66", "#FFFFFF", "#894CFF", "#FF6B6B", "#FFD93D"];
 
 export default function PostPage() {
+  const { postid } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Mock data matching the image
-  const postData = {
-    title: "레드키위 피즈",
-    subtitle: "이번 달, 문제의 그 재료",
-    tags: ["#맵부심", "#눈물남"],
-    mainIngredients: [
-      { name: "진", ratio: 25, color: "#00FF66" },
-      { name: "레드키위", ratio: 25, color: "#FFFFFF" },
-      { name: "탄산수", ratio: 50, color: "#894CFF" },
-    ],
-    subIngredients: "민트1g, 레몬즙 1t",
-    ratings: {
-      visual: 4,
-      satisfaction: 4.5,
-      difficulty: 3,
-      cost: 4,
-      popularity: 3.5,
-    },
+  const { data, isLoading, error } = useRecipe(postid as string);
+
+  // measure 합산으로 비율 계산
+  const mainIngredients = (data?.mainMaterials ?? []).map((m, i) => {
+    const total = (data?.mainMaterials ?? []).reduce(
+      (sum, mat) => sum + Number(mat.measure), 0
+    );
+    return {
+      name: m.name,
+      ratio: Math.round((Number(m.measure) / total) * 100),
+      color: INGREDIENT_COLORS[i % INGREDIENT_COLORS.length],
+    };
+  });
+
+  const subIngredients = (data?.subMaterials ?? [])
+    .map((m) => `${m.name} ${m.measure}`)
+    .join(", ");
+
+  const ratings = {
+    visual: data?.reviewSummary.averageVisual ?? 0,
+    satisfaction: data?.reviewSummary.averageSatisfaction ?? 0,
+    difficulty: data?.reviewSummary.averageEasiness ?? 0,
+    cost: data?.reviewSummary.averageAffordability ?? 0,
+    popularity: data?.reviewSummary.averageRarity ?? 0,
   };
+
+  if (isLoading) return (
+    <div className="w-[360px] mx-auto bg-[#121212] text-white min-h-screen flex items-center justify-center">
+      <p className="text-[#606060]">불러오는 중...</p>
+    </div>
+  );
+
+  if (error) return (
+    <div className="w-[360px] mx-auto bg-[#121212] text-white min-h-screen flex items-center justify-center">
+      <p className="text-[#606060]">오류가 발생했어요</p>
+    </div>
+  );
 
   return (
     <div className="w-[360px] mx-auto bg-[#121212] text-white min-h-screen font-pretendard flex flex-col relative overflow-hidden">
-      {/* Top Image Section with Status Bar Mockup */}
+      {/* Top Image Section */}
       <div className="relative w-full aspect-[4/5]">
         <Image
-          src="/oldFashioned.png" // Using the existing image as placeholder
-          alt="Post detail"
+          src={assetUrl(data?.imageUrl || "/oldFashioned.png")}
+          alt={data?.name ?? "레시피 이미지"}
           fill
           className="object-cover"
         />
-        {/* Status Bar Mockup Overlay */}
         <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/40 to-transparent">
           <span className="text-sm font-bold">9:41</span>
           <div className="flex gap-1 items-center">
@@ -50,20 +74,9 @@ export default function PostPage() {
             </svg>
           </div>
         </div>
-        {/* Back Button */}
         <button className="absolute top-12 left-4 z-10 p-2 rounded-full bg-black/20 backdrop-blur-sm">
-          <svg
-            className="w-6 h-6 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
       </div>
@@ -72,20 +85,8 @@ export default function PostPage() {
       <div className="p-6 flex flex-col gap-6">
         {/* Header Info */}
         <div className="flex flex-col gap-2">
-          <div className="flex justify-between items-start">
-            <h1 className="text-2xl font-bold">{postData.title}</h1>
-            <div className="flex gap-1">
-              {postData.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="bg-[#2a2a2a] text-[#a0a0a0] text-[10px] px-2 py-1 rounded-sm"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-          <p className="text-[#a0a0a0] text-sm">{postData.subtitle}</p>
+          <h1 className="text-2xl font-bold">{data?.name}</h1>
+          <p className="text-[#a0a0a0] text-sm">{data?.description}</p>
         </div>
 
         <div className="w-full h-[1px] bg-[#2a2a2a]" />
@@ -96,44 +97,36 @@ export default function PostPage() {
 
           <div className="flex flex-col gap-2">
             <span className="text-[12px] text-[#606060]">- 주 재료</span>
-            <span className="text-sm font-medium">레드키위, 진, 탄산수</span>
+            <span className="text-sm font-medium">
+              {(data?.mainMaterials ?? []).map((m) => m.name).join(", ")}
+            </span>
 
-            {/* Percentage Bar */}
             <div className="w-full h-8 flex rounded-sm overflow-hidden mt-2">
-              {postData.mainIngredients.map((item) => (
+              {mainIngredients.map((item, index) => (
                 <div
-                  key={item.name}
-                  style={{
-                    width: `${item.ratio}%`,
-                    backgroundColor: item.color,
-                  }}
+                  key={index}
+                  style={{ width: `${item.ratio}%`, backgroundColor: item.color }}
                   className="flex flex-col items-center justify-center text-black"
                 >
-                  <span className="text-[10px] font-bold leading-none">
-                    {item.name}
-                  </span>
-                  <span className="text-[11px] font-bold leading-none">
-                    {item.ratio}%
-                  </span>
+                  <span className="text-[10px] font-bold leading-none">{item.name}</span>
+                  <span className="text-[11px] font-bold leading-none">{item.ratio}%</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 mt-2">
-            <span className="text-[12px] text-[#606060]">- 부 재료</span>
-            <span className="text-sm font-medium">
-              {postData.subIngredients}
-            </span>
-          </div>
+          {subIngredients && (
+            <div className="flex flex-col gap-2 mt-2">
+              <span className="text-[12px] text-[#606060]">- 부 재료</span>
+              <span className="text-sm font-medium">{subIngredients}</span>
+            </div>
+          )}
         </div>
 
         <div className="w-full h-[1px] bg-[#2a2a2a]" />
 
-        {/* Evaluation Section */}
-        <Review ratings={postData.ratings} />
+        <Review ratings={ratings} />
 
-        {/* Review Action Button */}
         <button
           onClick={() => setIsModalOpen(true)}
           className="w-full bg-primary-500 text-white py-4 rounded-xl typo-subtitle font-bold mt-4 hover:bg-primary-600 transition-colors shadow-lg shadow-primary-500/20"

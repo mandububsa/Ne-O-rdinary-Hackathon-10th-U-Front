@@ -1,3 +1,5 @@
+"use server";
+
 // lib/api.ts
 // 공통 API 클라이언트. 모든 fetch는 이걸 통해서.
 // 백엔드 응답 공통 형태: { data: T, ... } 로 가정 (data 없으면 응답 전체 반환).
@@ -12,8 +14,6 @@ export const API_ORIGIN = new URL(BASE_URL).origin;
 export function assetUrl(path: string | null | undefined): string {
   if (!path) return '';
   if (path.startsWith('http')) return path;
-  // 로컬 public/images 폴더에 있는 이미지는 도메인을 붙이지 않음
-  if (path.startsWith('/images/')) return path;
   return `${API_ORIGIN}${path}`;
 }
 
@@ -31,7 +31,7 @@ export type Page<T> = {
   last: boolean;
 };
 
-export function buildUrl(path: string, query?: Query): string {
+function buildUrl(path: string, query?: Query): string {
   const url = new URL(`${BASE_URL}${path}`);
   if (query) {
     for (const [key, value] of Object.entries(query)) {

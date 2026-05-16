@@ -56,10 +56,10 @@ export default function BottomNavbar() {
   return (
     <nav
       aria-label="주요 메뉴"
-      className="fixed inset-x-0 bottom-0 z-20 flex justify-center bg-black pb-[max(env(safe-area-inset-bottom),12px)] shadow-[0_-4px_20px_0_rgba(255,255,255,0.15)]"
+      className="fixed bottom-0 left-1/2 z-20 flex w-[360px] -translate-x-1/2 justify-center bg-black pb-[max(env(safe-area-inset-bottom),12px)] shadow-[0_-4px_20px_0_rgba(255,255,255,0.15)]"
     >
-      {/* navbar 상단 디바이더: 하얀 라인이 양끝으로 옅어지도록 처리한다. */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent" />
+      {/* navbar 상단 디바이더: 좌우 구분 없이 전체가 균일한 옅은 라인. */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/20" />
       <div className="inline-flex h-[50px] w-full max-w-[360px] items-center justify-between px-20">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href;

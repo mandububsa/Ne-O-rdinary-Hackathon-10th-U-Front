@@ -1,6 +1,6 @@
 export default function SectionHeading() {
   return (
-    <section className="flex w-full flex-col gap-2 px-4 sm:px-6">
+    <section className="flex w-full flex-col gap-2 px-4">
       <h2 className="font-nexon text-title font-bold leading-[1.2] text-white">
         당신을 위한 추천 레시피
       </h2>

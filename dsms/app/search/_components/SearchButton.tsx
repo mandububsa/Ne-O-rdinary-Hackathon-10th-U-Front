@@ -10,7 +10,7 @@ export default function SearchButton() {
     >
       <Image src="/search-icon.svg" alt="" width={24} height={24} />
       <span className="min-w-0 flex-1 text-left text-body leading-typography text-gray-400">
-        글 제목, 내용, #해시태그
+        글 제목, 내용
       </span>
     </Link>
   );
