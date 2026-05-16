@@ -1,6 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
+import BackButton from '@/components/BackButton';
 
 type RecipeFormShellProps = {
   progress: 1 | 2 | 3;
@@ -8,20 +9,6 @@ type RecipeFormShellProps = {
   children: ReactNode;
   footer: ReactNode;
 };
-
-function BackIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className="size-6" fill="none">
-      <path
-        d="M15 18 9 12l6-6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 export default function RecipeFormShell({
   progress,
@@ -34,14 +21,7 @@ export default function RecipeFormShell({
       <div className="mx-auto flex min-h-screen w-full max-w-[960px] flex-col px-4 py-6 font-pretendard sm:px-6 lg:px-8">
         {/* 웹앱 상단 영역: 뒤로가기 액션만 간결하게 보여준다. */}
         <header className="flex items-center py-2">
-          <button
-            type="button"
-            aria-label="이전 화면으로 이동"
-            onClick={onBack}
-            className="inline-flex size-10 items-center justify-center text-white transition hover:text-primary-500"
-          >
-            <BackIcon />
-          </button>
+          <BackButton onClick={onBack} />
         </header>
 
         {/* 생성 단계 진행도를 3분할 프로그레스 바로 보여준다. */}
