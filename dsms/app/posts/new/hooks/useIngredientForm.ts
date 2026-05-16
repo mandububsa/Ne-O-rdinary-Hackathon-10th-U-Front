@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { MaterialRole, IngredientInput, MaterialCategoryWithChildren } from '@/types/recipe';
-import { useMaterialCategories } from './useMaterialCategories';
+import { useMaterialCategories } from '@/hooks/useMaterialCategories';
 
 export const MAX_INGREDIENTS = 3;
 
