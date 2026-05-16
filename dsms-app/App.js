@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const BASE_URL = "https://dsms-xi.vercel.app/";
+const BASE_URL = "https://ne-o-rdinary-hackathon-10th-u-front.vercel.app/";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
