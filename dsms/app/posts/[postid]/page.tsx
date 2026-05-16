@@ -6,6 +6,7 @@ import Review from "@/features/post/Review";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useRecipe } from "../hooks/useRecipe";
+import { useSubmitReview } from "@/hooks/useSubmitReview";
 
 const INGREDIENT_COLORS = ["#00FF66", "#FFFFFF", "#894CFF", "#FF6B6B", "#FFD93D"];
 
@@ -13,6 +14,7 @@ const BASE_IMAGE_URL = "https://zxcv9203.duckdns.org";
 
 export default function PostPage() {
   const { postid } = useParams();
+  const { submitReview } = useSubmitReview();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading, error } = useRecipe(postid as string);
@@ -138,11 +140,18 @@ export default function PostPage() {
       <ReviewWriteModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSubmit={(ratings) => {
-          console.log(ratings);
+        onSubmit={async (ratings) => {
+          await submitReview(postid as string, {
+            easiness: ratings.easy,
+            visual: ratings.visual,
+            rarity: ratings.rarity,
+            affordability: ratings.cost,
+            satisfaction: ratings.satisfaction,
+          });
           setIsModalOpen(false);
         }}
       />
+
     </div>
   );
 }
