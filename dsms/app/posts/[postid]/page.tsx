@@ -9,9 +9,9 @@ import { useParams } from "next/navigation";
 import { useRecipe } from "../hooks/useRecipe";
 import { useSubmitReview } from "@/hooks/useSubmitReview";
 
-const INGREDIENT_COLORS = ["#00FF66", "#FFFFFF", "#894CFF", "#FF6B6B", "#FFD93D"];
+import { assetUrl } from "@/lib/api";
 
-const BASE_IMAGE_URL = "https://zxcv9203.duckdns.org";
+const INGREDIENT_COLORS = ["#00FF66", "#FFFFFF", "#894CFF", "#FF6B6B", "#FFD93D"];
 
 export default function PostPage() {
   const { postid } = useParams();
@@ -61,7 +61,7 @@ export default function PostPage() {
       {/* Top Image Section */}
       <div className="relative w-full aspect-[4/5]">
         <Image
-          src={data?.imageUrl ? `${BASE_IMAGE_URL}${data.imageUrl}` : "/oldFashioned.png"}
+          src={assetUrl(data?.imageUrl || "/oldFashioned.png")}
           alt={data?.name ?? "레시피 이미지"}
           fill
           className="object-cover"

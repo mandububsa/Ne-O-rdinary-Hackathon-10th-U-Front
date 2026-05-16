@@ -100,7 +100,7 @@ export default function SearchPage() {
 
   return (
     <main className="flex min-h-screen w-full justify-center bg-[var(--SearchPageBackground,#101010)]">
-      <section className="flex min-h-screen w-full max-w-[360px] flex-col items-center gap-7 px-5 pb-6 pt-6 sm:max-w-[720px] sm:px-6 sm:pt-10">
+      <section className="flex min-h-screen w-[360px] flex-col items-center gap-7 px-5 pb-6 pt-6">
         <header className="w-full">
           <div className="flex w-full items-center gap-2 sm:gap-3">
             <BackButton className="shrink-0" />
@@ -144,8 +144,8 @@ export default function SearchPage() {
                 카테고리를 불러오는 중...
               </p>
             ) : (
-              <section className="grid w-full gap-4 sm:grid-cols-[180px_1fr]">
-                <div className="flex gap-2 overflow-x-auto rounded-[24px] border border-gray-800 bg-[var(--Gray6,#212121)] p-3 sm:flex-col sm:overflow-visible">
+              <section className="grid w-full gap-4">
+                <div className="flex gap-2 overflow-x-auto rounded-[24px] border border-gray-800 bg-[var(--Gray6,#212121)] p-3">
                   {categories.map((category) => (
                     <button
                       key={category.id}

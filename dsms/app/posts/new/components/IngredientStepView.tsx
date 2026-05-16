@@ -385,7 +385,7 @@ function AddIngredientSheet({
         }
       }}
     >
-      <div className="recipe-sheet-up relative flex h-[min(77vh,652px)] max-h-[calc(100vh-108px)] w-full max-w-[720px] flex-col overflow-y-auto rounded-t-[24px] bg-[#242424] p-5 shadow-2xl sm:p-6">
+      <div className="recipe-sheet-up relative flex h-[min(77vh,652px)] max-h-[calc(100vh-108px)] w-[360px] flex-col overflow-y-auto rounded-t-[24px] bg-[#242424] p-5 shadow-2xl">
         {/* 재료 추가 시트: 아래에서 올라오며 타입, 세부 재료, 상품명을 한 번에 입력한다. */}
         <button
           type="button"

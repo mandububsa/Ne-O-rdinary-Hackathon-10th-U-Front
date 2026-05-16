@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
-  { label: "피드", href: "/main", icon: FeedNavIcon },
+  { label: "피드", href: "/", icon: FeedNavIcon },
   { label: "레시피 생성", href: "/posts/new", icon: CreateRecipeIcon },
 ];
 
@@ -56,7 +56,7 @@ export default function BottomNavbar() {
   return (
     <nav
       aria-label="주요 메뉴"
-      className="fixed inset-x-0 bottom-0 z-20 flex justify-center bg-black pb-[max(env(safe-area-inset-bottom),12px)] shadow-[0_-4px_20px_0_rgba(255,255,255,0.15)]"
+      className="fixed bottom-0 left-1/2 z-20 flex w-[360px] -translate-x-1/2 justify-center bg-black pb-[max(env(safe-area-inset-bottom),12px)] shadow-[0_-4px_20px_0_rgba(255,255,255,0.15)]"
     >
       {/* navbar 상단 디바이더: 좌우 구분 없이 전체가 균일한 옅은 라인. */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/20" />

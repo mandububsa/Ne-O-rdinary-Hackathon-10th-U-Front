@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { type RecipeItem } from "@/app/posts/hooks/useRecipes";
-
-const BASE_IMAGE_URL = "https://zxcv9203.duckdns.org";
+import { assetUrl } from "@/lib/api";
 
 function RecipeImage({ recipe }: { recipe: RecipeItem }) {
   if (!recipe.imageUrl) {
@@ -12,10 +11,10 @@ function RecipeImage({ recipe }: { recipe: RecipeItem }) {
   return (
     <div className="relative aspect-[158/110] w-full overflow-hidden">
       <Image
-        src={`${BASE_IMAGE_URL}${recipe.imageUrl}`}
+        src={assetUrl(recipe.imageUrl)}
         alt={`${recipe.name} 이미지`}
         fill
-        sizes="(max-width: 720px) 50vw, 170px"
+        sizes="170px"
         className="object-cover"
       />
     </div>

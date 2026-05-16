@@ -31,17 +31,35 @@ export function useRecipeForm() {
 
   // --- 제출 ---
   const handleSubmit = async () => {
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
-    formData.append('tags', JSON.stringify(tags));
-    formData.append('ingredients', JSON.stringify(ingredients));
-    if (image) formData.append('image', image);
+    const { createRecipe } = await import('@/lib/api');
+    
+    // IngredientInput을 Material 타입으로 변환
+    const mainMaterials = ingredients
+      .filter((ing) => ing.role === 'MAIN')
+      .map((ing) => ({
+        categoryId: ing.category_id || 1, // 서버 스펙상 필수, 없으면 기본값
+        name: ing.name,
+        measure: ing.measure || '0', // 서버는 % 기호 없이 숫자만 요구함
+      }));
 
-    await fetch('/api/recipes', {
-      method: 'POST',
-      body: formData,
-    });
+    const subMaterials = ingredients
+      .filter((ing) => ing.role === 'SUB')
+      .map((ing) => ({
+        categoryId: ing.category_id || 1, // 서버 스펙상 필수, 없으면 기본값
+        name: ing.name,
+        measure: ing.measure || '',
+      }));
+
+    const requestPayload = {
+      name: title,
+      description: content,
+      mainMaterials,
+      subMaterials,
+    };
+
+    const result = await createRecipe(requestPayload, image);
+    console.log('Recipe created:', result);
+    return result;
   };
 
   return {
