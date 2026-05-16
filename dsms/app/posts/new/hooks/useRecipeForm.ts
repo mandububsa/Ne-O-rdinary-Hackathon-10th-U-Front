@@ -28,11 +28,6 @@ export function useRecipeForm() {
   const goToRatios = () => setStep('ratios');
   const goToRecipe = () => setStep('recipe');
   const goToIngredients = () => setStep('ingredients');
-  const goToMeasure = () => setStep('measure');
-  const goToPost = () => setStep('post');
-
-  // 기존 호환성 유지
-  const goToRecipe = goToPost;
 
   // --- 제출 ---
   const handleSubmit = async () => {
@@ -54,9 +49,6 @@ export function useRecipeForm() {
     step,
     goToRatios, goToRecipe,
     goToIngredients,
-    goToMeasure,
-    goToPost,
-    goToRecipe,
     // 상태값
     title, content, image, preview, tags, ingredients,
     // 핸들러
