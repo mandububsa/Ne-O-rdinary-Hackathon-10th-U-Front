@@ -1,19 +1,58 @@
-/**
- * 레시피 (`recipe` 테이블 기준).
- * easiness/visual/rarity/affordability는 작성자 자체 평가이며 0.5 단위 값이다.
- * 만족도(satisfaction)는 `recipe`에 없고 `review`에만 존재한다.
- * `tags`는 `recipe_tag`에서 조인해 온 값이다.
- */
-export interface Recipe {
-  id: number; // 레시피 PK
-  name: string; // 레시피 이름
-  description: string | null; // 설명/메모
-  imageUrl: string | null; // 대표 이미지 URL
-  easiness: number; // 작성자 평가 - 쉬움도 (0.5 단위)
-  visual: number; // 작성자 평가 - 비주얼
-  rarity: number; // 작성자 평가 - 희소성
-  affordability: number; // 작성자 평가 - 비용 접근성
-  tags: string[]; // 태그 (recipe_tag.name, 최대 3개)
-  createdAt: string; // 생성 시각 (ISO datetime)
-  updatedAt: string; // 수정 시각 (ISO datetime)
-}
+
+export type IngredientInput = {
+  category_id: number | null;
+  name: string;
+  role: MaterialRole;
+  measure: string;
+  display_order: number;
+};
+
+// 재료 카테고리
+export type MaterialCategory = {
+  id: number;
+  parent_id: number | null; // 대분류면 null
+  depth: 0 | 1 | 2;        // 0=대분류, 1=중분류, 2=소분류
+  name: string;
+  created_at: string;
+  updated_at: string;
+};
+
+// 레시피
+export type Recipe = {
+  id: number;
+  name: string;
+  description: string | null;
+  image_url: string | null;
+  easiness: number; 
+  visual: number;
+  rarity: number;
+  affordability: number;
+  created_at: string;
+  updated_at: string;
+};
+
+// 재료 역할
+export type MaterialRole = 'MAIN' | 'SUB';
+
+// 레시피 재료
+export type RecipeMaterial = {
+  id: number;
+  recipe_id: number;
+  category_id: number;
+  name: string;
+  role: MaterialRole;
+  measure: string;      // 자유 문자열 (예: "1", "30ml", "3개")
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+// 레시피 태그
+export type RecipeTag = {
+  id: number;
+  recipe_id: number;
+  name: string;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+};

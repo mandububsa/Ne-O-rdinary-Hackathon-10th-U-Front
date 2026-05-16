@@ -1,5 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-@import "tailwindcss";
+
 
 @font-face {
   font-family: "NEXON Lv1 Gothic Low OTF";
@@ -53,8 +52,6 @@
 
   /* Font Families */
   --font-nexon: "NEXON Lv1 Gothic Low OTF", sans-serif;
-  --font-pretendard:
-    "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 
   /* Font Weights */
   --font-weight-bold: 700;
@@ -210,3 +207,5 @@ body {
   color: var(--foreground);
   font-family: var(--font-pretendard);
 }
+
+@import "tailwindcss";

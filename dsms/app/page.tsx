@@ -1,7 +1,6 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
+
     <div className="flex flex-1 flex-col items-center justify-center font-sans">
       <main className="flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-12 px-5 py-12 sm:items-start sm:px-8 sm:py-20 md:px-16 md:py-32">
         <Image
@@ -61,5 +60,6 @@ export default function Home() {
         </div>
       </main>
     </div>
+
   );
 }
