@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
-  { label: "피드", href: "/feed", icon: FeedNavIcon },
+  { label: "피드", href: "/main", icon: FeedNavIcon },
   { label: "레시피 생성", href: "/posts/new", icon: CreateRecipeIcon },
 ];
 
