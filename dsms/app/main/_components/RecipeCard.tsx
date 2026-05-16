@@ -36,16 +36,6 @@ export default function RecipeCard({ recipe }: { recipe: FeedRecipe }) {
           {recipe.description}
         </p>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {recipe.tags.map((tag) => (
-          <span
-            key={tag}
-            className="inline-flex items-center justify-center rounded-[2px] border border-white/50 bg-gray-800 px-1.5 py-0.5 text-body font-medium leading-[1.2] text-white"
-          >
-            #{tag}
-          </span>
-        ))}
-      </div>
     </Link>
   );
 }

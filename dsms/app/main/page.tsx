@@ -1,7 +1,7 @@
+import Image from "next/image";
 import { FEED_RECIPES } from "@/data/feed";
 import BottomNavbar from "@/components/BottomNavbar";
 import SearchButton from "@/app/search/_components/SearchButton";
-import NotificationIcon from "./_components/NotificationIcon";
 import MonthlyBanner from "./_components/MonthlyBanner";
 import SectionHeading from "./_components/SectionHeading";
 import RecipeCard from "./_components/RecipeCard";
@@ -10,19 +10,16 @@ export default function MainPage() {
   return (
     <main className="min-h-screen bg-[#101010] text-white">
       <div className="mx-auto flex min-h-screen w-full max-w-[720px] flex-col pb-[calc(86px+env(safe-area-inset-bottom))]">
-        {/* 헤더: 서비스명과 알림 진입점을 모바일 상단에 배치한다. */}
+        {/* 헤더: 서비스명을 모바일 상단에 배치한다. */}
         <header className="flex w-full flex-col gap-7 px-4 pb-3 pt-6 sm:px-6 sm:pt-10">
-          <div className="flex h-[42px] items-end justify-between">
-            <p className="font-nexon text-[20px] font-bold leading-none text-white">
-              드숑마숑
-            </p>
-            <button
-              type="button"
-              aria-label="알림 보기"
-              className="inline-flex size-8 items-center justify-center text-white"
-            >
-              <NotificationIcon />
-            </button>
+          <div className="flex h-[42px] items-end">
+            <Image
+              src="/logo.svg"
+              alt="드숑마숑"
+              width={89}
+              height={27}
+              priority
+            />
           </div>
 
           {/* 검색: 기존 SearchButton 컴포넌트를 재사용해 검색 페이지로 연결한다. */}
