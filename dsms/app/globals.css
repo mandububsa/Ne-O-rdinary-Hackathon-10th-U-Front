@@ -119,6 +119,13 @@
   --font-mono: var(--font-geist-mono);
   --font-nexon: var(--font-nexon);
   --font-pretendard: var(--font-pretendard);
+  --text-heading: var(--typography-heading-size);
+  --text-title: var(--typography-title-size);
+  --text-subtitle-nexon: var(--typography-subtitle-nexon-size);
+  --text-subtitle: var(--typography-subtitle-size);
+  --text-body: var(--typography-text-size);
+  --text-caption: var(--typography-caption-size);
+  --leading-typography: 1.4;
 
   /* Primary Colors */
   --color-primary-50: var(--primary-50);
@@ -147,6 +154,48 @@
   /* Base Colors */
   --color-white: var(--white);
   --color-black: var(--black);
+}
+
+@utility typo-heading {
+  font-family: var(--typography-heading-font);
+  font-size: var(--typography-heading-size);
+  line-height: var(--typography-heading-line-height);
+  letter-spacing: 0;
+}
+
+@utility typo-title {
+  font-family: var(--typography-title-font);
+  font-size: var(--typography-title-size);
+  line-height: var(--typography-title-line-height);
+  letter-spacing: 0;
+}
+
+@utility typo-subtitle-nexon {
+  font-family: var(--typography-subtitle-nexon-font);
+  font-size: var(--typography-subtitle-nexon-size);
+  line-height: var(--typography-subtitle-nexon-line-height);
+  letter-spacing: 0;
+}
+
+@utility typo-subtitle {
+  font-family: var(--typography-subtitle-font);
+  font-size: var(--typography-subtitle-size);
+  line-height: var(--typography-subtitle-line-height);
+  letter-spacing: 0;
+}
+
+@utility typo-text {
+  font-family: var(--typography-text-font);
+  font-size: var(--typography-text-size);
+  line-height: var(--typography-text-line-height);
+  letter-spacing: 0;
+}
+
+@utility typo-caption {
+  font-family: var(--typography-caption-font);
+  font-size: var(--typography-caption-size);
+  line-height: var(--typography-caption-line-height);
+  letter-spacing: 0;
 }
 
 @media (prefers-color-scheme: dark) {
