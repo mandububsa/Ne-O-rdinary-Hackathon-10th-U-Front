@@ -56,3 +56,10 @@ export type RecipeTag = {
   created_at: string;
   updated_at: string;
 };
+
+// API 응답용 카테고리 타입 (children 포함)
+export type MaterialCategoryWithChildren = {
+  id: number;
+  name: string;
+  children: MaterialCategoryWithChildren[];
+};
