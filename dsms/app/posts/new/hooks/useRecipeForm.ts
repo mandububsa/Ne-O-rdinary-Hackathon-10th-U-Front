@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { IngredientInput } from '@/types/recipe';
 
-type Step = 'ingredients' | 'recipe';
+type Step = 'ingredients' | 'ratios' | 'recipe';
 
 export function useRecipeForm() {
   // --- Step ---
@@ -23,6 +23,7 @@ export function useRecipeForm() {
   };
 
   // --- Step 이동 ---
+  const goToRatios = () => setStep('ratios');
   const goToRecipe = () => setStep('recipe');
   const goToIngredients = () => setStep('ingredients');
 
@@ -44,7 +45,7 @@ export function useRecipeForm() {
   return {
     // Step
     step,
-    goToRecipe,
+    goToRatios, goToRecipe,
     goToIngredients,
     // 상태값
     title, content, image, preview, tags, ingredients,

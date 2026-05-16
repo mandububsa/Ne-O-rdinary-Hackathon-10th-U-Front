@@ -1,12 +1,15 @@
 'use client'
 
+import { useRouter } from "next/navigation";
 import { useRecipeForm } from "./hooks/useRecipeForm";
 import RecipeInputView from "./components/RecipeInputView";
 import IngredientStepView from "./components/IngredientStepView";
+import RatioStepView from "./components/RatioStepView";
 
 export default function NewPostPage() {
+  const router = useRouter();
   const {
-    step, goToRecipe, goToIngredients,
+    step, goToRatios, goToRecipe, goToIngredients,
     title, setTitle,
     content, setContent,
     preview, handleImageChange,
@@ -14,6 +17,25 @@ export default function NewPostPage() {
     ingredients, setIngredients,
     handleSubmit,
   } = useRecipeForm();
+
+  const handleBack = () => {
+    if (step === 'recipe') {
+      goToRatios();
+      return;
+    }
+
+    if (step === 'ratios') {
+      goToIngredients();
+      return;
+    }
+
+    router.back();
+  };
+
+  const handleComplete = async () => {
+    await handleSubmit();
+    router.push('/feed');
+  };
 
   if (step === 'recipe') {
     return (
@@ -23,8 +45,20 @@ export default function NewPostPage() {
         preview={preview} onImageChange={handleImageChange}
         tags={tags} onTagsChange={setTags}
         ingredients={ingredients}
-        onSubmit={handleSubmit}
+        onSubmit={handleComplete}
         onIngredientClick={goToIngredients}
+        onBack={handleBack}
+      />
+    );
+  }
+
+  if (step === 'ratios') {
+    return (
+      <RatioStepView
+        value={ingredients}
+        onChange={setIngredients}
+        onNext={goToRecipe}
+        onBack={handleBack}
       />
     );
   }
@@ -33,7 +67,8 @@ export default function NewPostPage() {
     <IngredientStepView
       value={ingredients}
       onChange={setIngredients}
-      onNext={goToRecipe}
+      onNext={goToRatios}
+      onBack={handleBack}
     />
   );
 }
