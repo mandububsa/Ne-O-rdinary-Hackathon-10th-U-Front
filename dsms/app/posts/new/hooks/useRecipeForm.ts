@@ -37,7 +37,7 @@ export function useRecipeForm() {
     const mainMaterials = ingredients
       .filter((ing) => ing.role === 'MAIN')
       .map((ing) => ({
-        categoryId: ing.categoryId || 1, // 서버 스펙상 필수, 없으면 기본값
+        categoryId: ing.category_id || 1, // 서버 스펙상 필수, 없으면 기본값
         name: ing.name,
         measure: ing.measure || '0', // 서버는 % 기호 없이 숫자만 요구함
       }));
@@ -45,7 +45,7 @@ export function useRecipeForm() {
     const subMaterials = ingredients
       .filter((ing) => ing.role === 'SUB')
       .map((ing) => ({
-        categoryId: ing.categoryId || 1, // 서버 스펙상 필수, 없으면 기본값
+        categoryId: ing.category_id || 1, // 서버 스펙상 필수, 없으면 기본값
         name: ing.name,
         measure: ing.measure || '',
       }));
