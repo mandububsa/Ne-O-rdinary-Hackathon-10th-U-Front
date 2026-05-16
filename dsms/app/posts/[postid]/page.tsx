@@ -18,7 +18,7 @@ export default function PostPage() {
   const { submitReview } = useSubmitReview();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data, isLoading, error } = useRecipe(postid as string);
+  const { data, isLoading, error, refetch } = useRecipe(postid as string);
 
   // measure 합산으로 비율 계산
   const mainIngredients = (data?.mainMaterials ?? []).map((m, i) => {
@@ -147,6 +147,7 @@ export default function PostPage() {
             satisfaction: ratings.satisfaction,
           });
           setIsModalOpen(false);
+          refetch(); // 리뷰 제출 후 최신 데이터 재요청
         }}
       />
 
