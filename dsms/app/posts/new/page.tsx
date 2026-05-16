@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useRecipeForm } from "./hooks/useRecipeForm";
+import StepProgressBar from "./components/StepProgressBar";
 import RecipeInputView from "./components/RecipeInputView";
 import IngredientStepView from "./components/IngredientStepView";
 import RatioStepView from "./components/RatioStepView";

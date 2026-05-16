@@ -9,10 +9,10 @@ type Props = {
 };
 
 export default function IngredientSelectView({ value, onChange }: Props) {
+
   const {
     topCategories, subCategories, selectedTop,
     addIngredient, removeIngredient, updateIngredient, handleTopChange,
-    handleMeasureChange
   } = useIngredientForm();
 
   return (
@@ -59,14 +59,6 @@ export default function IngredientSelectView({ value, onChange }: Props) {
             <option value="SUB">SUB (부재료)</option>
           </select>
 
-          <input
-            value={ingredient.measure}
-            onChange={e => handleMeasureChange(index, e.target.value, ingredient.role, value, onChange)}
-            placeholder={ingredient.role === 'MAIN' ? '비율 (예: 70)' : '용량 (예: 30.5)'}
-            inputMode={ingredient.role === 'MAIN' ? 'numeric' : 'decimal'} // 모바일 키패드 최적화
-            className="w-full rounded-xl px-4 py-3 bg-white text-gray-900 typo-text placeholder:text-gray-400 border-2 border-transparent focus:border-primary-400 outline-none transition"
-            />
-
           <button
             type="button"
             onClick={() => removeIngredient(index, value, onChange)}
@@ -77,7 +69,6 @@ export default function IngredientSelectView({ value, onChange }: Props) {
         </div>
       ))}
 
-      {/* 최대 3개 제한 */}
       {value.length < MAX_INGREDIENTS ? (
         <button
           type="button"
