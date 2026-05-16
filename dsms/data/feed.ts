@@ -1,10 +1,22 @@
-import { Recipe } from "@/types/recipe";
+export type FeedRecipe = {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string | null;
+  easiness: number;
+  visual: number;
+  rarity: number;
+  affordability: number;
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
+};
 
 /**
  * 피드 화면용 더미 레시피 데이터.
- * 이미지가 아직 없어 썸네일은 모두 placeholder(`/oldFashioned.png`)를 사용한다.
+ * 이미지가 아직 없는 항목은 피드 카드에서 회색 placeholder로 보여준다.
  */
-export const FEED_RECIPES: Recipe[] = [
+export const FEED_RECIPES: FeedRecipe[] = [
   {
     id: 1,
     name: "레드키위 피즈",

@@ -150,8 +150,8 @@ export default function SearchPage() {
 
             <div className="min-w-0 flex-1">
               <SearchInput
+                key={searchResetSignal}
                 onSearch={setSearchedKeyword}
-                resetSignal={searchResetSignal}
               />
             </div>
           </div>
