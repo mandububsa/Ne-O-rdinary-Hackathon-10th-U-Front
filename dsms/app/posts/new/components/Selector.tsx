@@ -1,30 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 type Props = {
   value: string[];
   onChange: (tags: string[]) => void;
 };
 
+const TAG_OPTIONS = ['맥주', '소주', '폭탄주', '양주', '막걸리'];
+
 export default function Selector({ value, onChange }: Props) {
-  const [options, setOptions] = useState<string[]>(['tag1', 'tag2']);
   const [input, setInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
-  // useEffect(() => {
-  //   fetch('/api/tags')
-  //     .then(res => res.json())
-  //     .then(data => setOptions(data));
-  // }, []);
-
-  useEffect(() => {
-    // TODO: 실제 API 연결 시 fetch로 교체
-    setOptions(['맥주', '소주', '폭탄주', '양주', '막걸리']);
-  }, []);
-
   // 입력값으로 필터링된 옵션 (이미 선택된 것 제외)
-  const filtered = options.filter(opt =>
+  const filtered = TAG_OPTIONS.filter(opt =>
     opt.includes(input) && !value.includes(opt)
   );
 
@@ -41,10 +31,6 @@ export default function Selector({ value, onChange }: Props) {
     onChange([...value, normalized]);
     setInput('');
     setIsOpen(false);
-  };
-
-  const removeItem = (item: string) => {
-    onChange(value.filter(t => t !== item));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

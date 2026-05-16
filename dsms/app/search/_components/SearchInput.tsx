@@ -8,15 +8,10 @@ const SEARCH_KEYWORD_MAX_LENGTH = 8;
 
 type SearchInputProps = {
   onSearch?: (keyword: string) => void;
-  resetSignal?: number;
 };
 
-export default function SearchInput({ onSearch, resetSignal }: SearchInputProps) {
+export default function SearchInput({ onSearch }: SearchInputProps) {
   const [keyword, setKeyword] = useState("");
-
-  useEffect(() => {
-    setKeyword("");
-  }, [resetSignal]);
 
   useEffect(() => {
     const trimmedKeyword = keyword.trim();
