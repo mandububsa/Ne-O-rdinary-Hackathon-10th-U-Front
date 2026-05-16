@@ -24,7 +24,6 @@ export default function RecipeInputView({
   title, onTitleChange,
   content, onContentChange,
   preview, onImageChange,
-  tags, onTagsChange,
   ingredients,
   onSubmit,
   onIngredientClick,
@@ -95,12 +94,6 @@ export default function RecipeInputView({
       <div className="w-full flex flex-col gap-1">
         <label className="typo-subtitle-nexon font-bold text-gray-700">사진</label>
         <ImageInput onChange={onImageChange} preview={preview} />
-      </div>
-
-      {/* 태그 */}
-      <div className="w-full flex flex-col gap-1">
-        <label className="typo-subtitle-nexon font-bold text-gray-700">태그</label>
-        <TagInput value={tags} onChange={onTagsChange} />
       </div>
 
       <Button title="저장" variant="primary" onClick={onSubmit} />
