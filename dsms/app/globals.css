@@ -18,6 +18,42 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Medium.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-SemiBold.woff2")
+    format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -52,6 +88,7 @@
 
   /* Font Families */
   --font-nexon: "NEXON Lv1 Gothic Low OTF", sans-serif;
+  --font-pretendard: "Pretendard", sans-serif;
 
   /* Font Weights */
   --font-weight-bold: 700;
@@ -80,6 +117,24 @@
   --typography-subtitle-nexon-weight-bold: var(--font-weight-bold);
   --typography-subtitle-nexon-weight-regular: var(--font-weight-regular);
   --typography-subtitle-nexon-line-height: 1.4;
+
+  /* Title - Pretendard (3xl, Pretendard, 20px, 140% line-height) */
+  --typography-title-pretendard-3xl-font: var(--font-pretendard);
+  --typography-title-pretendard-3xl-size: 20px;
+  --typography-title-pretendard-3xl-weight-bold: var(--font-weight-bold);
+  --typography-title-pretendard-3xl-weight-semibold: var(--font-weight-semibold);
+  --typography-title-pretendard-3xl-weight-medium: var(--font-weight-medium);
+  --typography-title-pretendard-3xl-weight-regular: var(--font-weight-regular);
+  --typography-title-pretendard-3xl-line-height: 1.4;
+
+  /* Title - Pretendard (2xl, Pretendard, 18px, 140% line-height) */
+  --typography-title-pretendard-2xl-font: var(--font-pretendard);
+  --typography-title-pretendard-2xl-size: 18px;
+  --typography-title-pretendard-2xl-weight-bold: var(--font-weight-bold);
+  --typography-title-pretendard-2xl-weight-semibold: var(--font-weight-semibold);
+  --typography-title-pretendard-2xl-weight-medium: var(--font-weight-medium);
+  --typography-title-pretendard-2xl-weight-regular: var(--font-weight-regular);
+  --typography-title-pretendard-2xl-line-height: 1.4;
 
   /* Sub Title - Pretendard (xl, Pretendard, 16px, 140% line-height) */
   --typography-subtitle-font: var(--font-pretendard);
@@ -118,6 +173,8 @@
   --font-pretendard: var(--font-pretendard);
   --text-heading: var(--typography-heading-size);
   --text-title: var(--typography-title-size);
+  --text-title-pretendard-3xl: var(--typography-title-pretendard-3xl-size);
+  --text-title-pretendard-2xl: var(--typography-title-pretendard-2xl-size);
   --text-subtitle-nexon: var(--typography-subtitle-nexon-size);
   --text-subtitle: var(--typography-subtitle-size);
   --text-body: var(--typography-text-size);
@@ -164,6 +221,20 @@
   font-family: var(--typography-title-font);
   font-size: var(--typography-title-size);
   line-height: var(--typography-title-line-height);
+  letter-spacing: 0;
+}
+
+@utility typo-title-pretendard-3xl {
+  font-family: var(--typography-title-pretendard-3xl-font);
+  font-size: var(--typography-title-pretendard-3xl-size);
+  line-height: var(--typography-title-pretendard-3xl-line-height);
+  letter-spacing: 0;
+}
+
+@utility typo-title-pretendard-2xl {
+  font-family: var(--typography-title-pretendard-2xl-font);
+  font-size: var(--typography-title-pretendard-2xl-size);
+  line-height: var(--typography-title-pretendard-2xl-line-height);
   letter-spacing: 0;
 }
 
