@@ -2,13 +2,13 @@ import Image from "next/image";
 
 export default function MonthlyBanner() {
   return (
-    <section className="relative h-[280px] w-full overflow-hidden sm:rounded-lg">
+    <section className="relative h-[280px] w-full overflow-hidden">
       <Image
         src="/images/red-kiwi-month.png"
         alt="레드키위 월간 주제"
         fill
         priority
-        sizes="(max-width: 720px) 100vw, 720px"
+        sizes="360px"
         className="object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />

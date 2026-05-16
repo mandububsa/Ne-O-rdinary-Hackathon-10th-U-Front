@@ -35,7 +35,7 @@ export default function NewPostPage() {
 
   const handleComplete = async () => {
     await handleSubmit();
-    router.push('/feed');
+    router.push('/');
   };
 
   if (step === 'recipe') {

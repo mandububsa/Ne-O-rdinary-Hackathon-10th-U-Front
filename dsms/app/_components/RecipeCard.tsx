@@ -13,7 +13,7 @@ function RecipeImage({ recipe }: { recipe: FeedRecipe }) {
         src={recipe.imageUrl}
         alt={`${recipe.name} 이미지`}
         fill
-        sizes="(max-width: 720px) 50vw, 170px"
+        sizes="170px"
         className="object-cover"
       />
     </div>
