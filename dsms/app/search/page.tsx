@@ -6,6 +6,7 @@ import SearchResultSkeleton from "./_components/SearchResultSkeleton";
 import SearchResultList from "./_components/SearchResultList";
 import { useRecipeSearch } from "./_hooks/useRecipeSearch";
 import { useMaterialCategories } from "@/hooks/useMaterialCategories";
+import BackButton from "@/components/BackButton";
 
 const searchTabs = ["검색어", "재료"] as const;
 
@@ -102,14 +103,7 @@ export default function SearchPage() {
       <section className="flex min-h-screen w-full max-w-[360px] flex-col items-center gap-7 px-5 pb-6 pt-6 sm:max-w-[720px] sm:px-6 sm:pt-10">
         <header className="w-full">
           <div className="flex w-full items-center gap-2 sm:gap-3">
-            <button
-              type="button"
-              aria-label="이전 페이지로 이동"
-              onClick={() => window.history.back()}
-              className="inline-flex size-8 shrink-0 items-center justify-center typo-title text-white sm:size-10"
-            >
-              {"<"}
-            </button>
+            <BackButton className="shrink-0" />
 
             <div className="min-w-0 flex-1">
               <SearchInput

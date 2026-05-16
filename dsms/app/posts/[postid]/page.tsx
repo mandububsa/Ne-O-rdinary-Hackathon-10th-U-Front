@@ -3,6 +3,7 @@
 import Image from "next/image";
 import ReviewWriteModal from "@/features/post/ReviewWriteModal";
 import Review from "@/features/post/Review";
+import BackButton from "@/components/BackButton";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useRecipe } from "../hooks/useRecipe";
@@ -76,11 +77,8 @@ export default function PostPage() {
             </svg>
           </div>
         </div>
-        <button className="absolute top-12 left-4 z-10 p-2 rounded-full bg-black/20 backdrop-blur-sm">
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+        {/* Back Button: 공용 버튼에 블러 배경만 덧입힌다. */}
+        <BackButton className="absolute top-12 left-4 z-10 rounded-full bg-black/20 backdrop-blur-sm" />
       </div>
 
       {/* Content Section */}
