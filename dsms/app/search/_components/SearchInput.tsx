@@ -1,36 +1,46 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 
-// 디바운싱은 주석 처리. 검색했을 때 추천 검색어 뜨게 하는 게 아니라면
-// const SEARCH_DEBOUNCE_DELAY = 300;
+const SEARCH_DEBOUNCE_DELAY = 300;
+const SEARCH_KEYWORD_MAX_LENGTH = 8;
 
-const searchKeyword = (keyword: string) => {
-  console.log("검색어:", keyword);
+type SearchInputProps = {
+  onSearch?: (keyword: string) => void;
+  resetSignal?: number;
 };
 
-export default function SearchInput() {
+export default function SearchInput({ onSearch, resetSignal }: SearchInputProps) {
   const [keyword, setKeyword] = useState("");
-  // const [debouncedKeyword, setDebouncedKeyword] = useState("");
 
-  // useEffect(() => {
-  //   const timeoutId = window.setTimeout(() => {
-  //     setDebouncedKeyword(keyword.trim());
-  //   }, SEARCH_DEBOUNCE_DELAY);
+  useEffect(() => {
+    setKeyword("");
+  }, [resetSignal]);
 
-  //   return () => {
-  //     window.clearTimeout(timeoutId);
-  //   };
-  // }, [keyword]);
+  useEffect(() => {
+    const trimmedKeyword = keyword.trim();
 
-  // useEffect(() => {
-  //   if (!debouncedKeyword) {
-  //     return;
-  //   }
+    if (!trimmedKeyword) {
+      onSearch?.("");
+      return;
+    }
 
-  //   searchKeyword(debouncedKeyword);
-  // }, [debouncedKeyword]);
+    const timeoutId = window.setTimeout(
+      () => onSearch?.(trimmedKeyword),
+      SEARCH_DEBOUNCE_DELAY,
+    );
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [keyword, onSearch]);
+
+  const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const nextKeyword = event.target.value.slice(0, SEARCH_KEYWORD_MAX_LENGTH);
+
+    setKeyword(nextKeyword);
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -41,13 +51,13 @@ export default function SearchInput() {
       return;
     }
 
-    searchKeyword(trimmedKeyword);
+    onSearch?.(trimmedKeyword);
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="inline-flex min-h-[42px] w-full max-w-[327px] items-center justify-center gap-2 rounded-[40px] border border-gray-700 bg-gray-900 px-4 py-3"
+      className="inline-flex h-[42px] w-full items-center justify-center gap-2 rounded-[40px] border border-gray-800 bg-[var(--Gray6,#212121)] px-4 py-3"
     >
       <button
         type="submit"
@@ -58,8 +68,9 @@ export default function SearchInput() {
       </button>
       <input
         value={keyword}
-        onChange={(event) => setKeyword(event.target.value)}
-        placeholder="검색어를 입력하세요"
+        onChange={handleKeywordChange}
+        placeholder="검색어 입력"
+        maxLength={SEARCH_KEYWORD_MAX_LENGTH}
         className="min-w-0 flex-1 bg-transparent text-body leading-typography text-white outline-none placeholder:text-gray-400"
       />
     </form>
