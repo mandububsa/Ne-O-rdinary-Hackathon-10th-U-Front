@@ -1,17 +1,16 @@
 'use client'
 
+import { useRouter } from "next/navigation";
 import { useRecipeForm } from "./hooks/useRecipeForm";
 import StepProgressBar from "./components/StepProgressBar";
 import RecipeInputView from "./components/RecipeInputView";
 import IngredientStepView from "./components/IngredientStepView";
-import MeasureStepView from "./components/MeasureStepView";
-
-const STEP_LABELS = ['재료 선택', '비율 입력', '게시물 작성'];
+import RatioStepView from "./components/RatioStepView";
 
 export default function NewPostPage() {
+  const router = useRouter();
   const {
-    step, stepMap,
-    goToIngredients, goToMeasure, goToPost,
+    step, goToRatios, goToRecipe, goToIngredients,
     title, setTitle,
     content, setContent,
     preview, handleImageChange,
@@ -20,62 +19,57 @@ export default function NewPostPage() {
     handleSubmit,
   } = useRecipeForm();
 
-  const currentStep = stepMap[step];
-
   const handleBack = () => {
-    if (step === 'measure') goToIngredients();
-    if (step === 'post') goToMeasure();
+    if (step === 'recipe') {
+      goToRatios();
+      return;
+    }
+
+    if (step === 'ratios') {
+      goToIngredients();
+      return;
+    }
+
+    router.back();
   };
 
+  const handleComplete = async () => {
+    await handleSubmit();
+    router.push('/feed');
+  };
+
+  if (step === 'recipe') {
+    return (
+      <RecipeInputView
+        title={title} onTitleChange={setTitle}
+        content={content} onContentChange={setContent}
+        preview={preview} onImageChange={handleImageChange}
+        tags={tags} onTagsChange={setTags}
+        ingredients={ingredients}
+        onSubmit={handleComplete}
+        onIngredientClick={goToIngredients}
+        onBack={handleBack}
+      />
+    );
+  }
+
+  if (step === 'ratios') {
+    return (
+      <RatioStepView
+        value={ingredients}
+        onChange={setIngredients}
+        onNext={goToRecipe}
+        onBack={handleBack}
+      />
+    );
+  }
+
   return (
-    <div className="flex flex-col w-full max-w-lg mx-auto px-6 py-6 gap-4">
-
-      {/* 상단 헤더 */}
-      <div className="flex items-center gap-3">
-        {currentStep > 1 && (
-          <button
-            type="button"
-            onClick={handleBack}
-            className="p-1 text-gray-500 hover:text-gray-900 transition"
-          >
-            ←
-          </button>
-        )}
-        <StepProgressBar
-          currentStep={currentStep}
-          totalSteps={3}
-          labels={STEP_LABELS}
-        />
-      </div>
-
-      {step === 'ingredients' && (
-        <IngredientStepView
-          value={ingredients}
-          onChange={setIngredients}
-          onNext={goToMeasure}
-        />
-      )}
-
-      {step === 'measure' && (
-        <MeasureStepView
-          ingredients={ingredients}
-          onChange={setIngredients}
-          onPrev={goToIngredients}
-          onNext={goToPost}
-        />
-      )}
-
-      {step === 'post' && (
-        <RecipeInputView
-          title={title} onTitleChange={setTitle}
-          content={content} onContentChange={setContent}
-          preview={preview} onImageChange={handleImageChange}
-          tags={tags} onTagsChange={setTags}
-          ingredients={ingredients}
-          onSubmit={handleSubmit}
-          onIngredientClick={goToIngredients}
-        />
-      )}
-    </div>
+    <IngredientStepView
+      value={ingredients}
+      onChange={setIngredients}
+      onNext={goToRatios}
+      onBack={handleBack}
+    />
   );
 }
