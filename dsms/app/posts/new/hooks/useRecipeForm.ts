@@ -1,8 +1,16 @@
+// new/hooks/useRecipeForm.ts
 'use client'
+
 import { useState } from 'react';
 import { IngredientInput } from '@/types/recipe';
 
-type Step = 'ingredients' | 'recipe';
+type Step = 'ingredients' | 'measure' | 'post';
+
+const stepMap: Record<Step, number> = {
+  ingredients: 1,
+  measure: 2,
+  post: 3,
+};
 
 export function useRecipeForm() {
   // --- Step ---
@@ -23,8 +31,12 @@ export function useRecipeForm() {
   };
 
   // --- Step 이동 ---
-  const goToRecipe = () => setStep('recipe');
   const goToIngredients = () => setStep('ingredients');
+  const goToMeasure = () => setStep('measure');
+  const goToPost = () => setStep('post');
+
+  // 기존 호환성 유지
+  const goToRecipe = goToPost;
 
   // --- 제출 ---
   const handleSubmit = async () => {
@@ -44,8 +56,11 @@ export function useRecipeForm() {
   return {
     // Step
     step,
-    goToRecipe,
+    stepMap,
     goToIngredients,
+    goToMeasure,
+    goToPost,
+    goToRecipe,
     // 상태값
     title, content, image, preview, tags, ingredients,
     // 핸들러

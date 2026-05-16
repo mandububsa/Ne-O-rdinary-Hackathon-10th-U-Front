@@ -1,26 +1,24 @@
 // new/hooks/useIngredientForm.ts
-import { useState, useEffect } from 'react';
-import { MaterialCategory, MaterialRole, IngredientInput } from '@/types/recipe';
+'use client'
+
+import { useState } from 'react';
+import { MaterialRole, IngredientInput, MaterialCategoryWithChildren } from '@/types/recipe';
+import { useMaterialCategories } from './useMaterialCategories';
 
 export const MAX_INGREDIENTS = 3;
 
 export function useIngredientForm() {
-  const [topCategories, setTopCategories] = useState<MaterialCategory[]>([]);
-  const [subCategories, setSubCategories] = useState<MaterialCategory[]>([]);
+  const { categories } = useMaterialCategories();
   const [selectedTop, setSelectedTop] = useState<number | null>(null);
 
-  useEffect(() => {
-    fetch('/api/categories?depth=0')
-      .then(res => res.json())
-      .then(data => setTopCategories(data));
-  }, []);
+  // 대분류: categories 자체
+  const topCategories: MaterialCategoryWithChildren[] = categories;
 
-  useEffect(() => {
-    if (selectedTop === null) return;
-    fetch(`/api/categories?depth=1&parent_id=${selectedTop}`)
-      .then(res => res.json())
-      .then(data => setSubCategories(data));
-  }, [selectedTop]);
+  // 중분류: 선택된 대분류의 children
+  const subCategories: MaterialCategoryWithChildren[] =
+    selectedTop !== null
+      ? (categories.find(cat => cat.id === selectedTop)?.children ?? [])
+      : [];
 
   const addIngredient = (value: IngredientInput[], onChange: (v: IngredientInput[]) => void) => {
     if (value.length >= MAX_INGREDIENTS) return;
@@ -30,7 +28,11 @@ export function useIngredientForm() {
     ]);
   };
 
-  const removeIngredient = (index: number, value: IngredientInput[], onChange: (v: IngredientInput[]) => void) => {
+  const removeIngredient = (
+    index: number,
+    value: IngredientInput[],
+    onChange: (v: IngredientInput[]) => void
+  ) => {
     onChange(
       value
         .filter((_, i) => i !== index)
@@ -50,7 +52,6 @@ export function useIngredientForm() {
     ));
   };
 
-  // MAIN: 정수만, SUB: 숫자 자유 입력
   const handleMeasureChange = (
     index: number,
     val: string,
@@ -59,11 +60,10 @@ export function useIngredientForm() {
     onChange: (v: IngredientInput[]) => void
   ) => {
     if (role === 'MAIN') {
-      const onlyInt = val.replace(/[^0-9]/g, '');         // 정수만 허용
+      const onlyInt = val.replace(/[^0-9]/g, '');
       updateIngredient(index, 'measure', onlyInt, value, onChange);
     } else {
-      const onlyNumber = val.replace(/[^0-9.]/g, '')      // 숫자 + 소수점만 허용
-        .replace(/(\..*)\./g, '$1');                       // 소수점 중복 방지
+      const onlyNumber = val.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
       updateIngredient(index, 'measure', onlyNumber, value, onChange);
     }
   };
